@@ -1,0 +1,67 @@
+priority -50
+
+#################################
+# Snippets for the Lua language #
+#################################
+snippet #! "Shebang header" b
+#!/usr/bin/env lua
+$0
+endsnippet
+
+snippet !fun(ction)?! "New function" br
+function ${1:new_function}(${2:args})
+	$0
+end
+endsnippet
+
+snippet forp "pair for loop" b
+for ${1:name},${2:val} in pairs(${3:table_name}) do
+	$0
+end
+endsnippet
+
+snippet fori "ipair for foop" b
+for ${1:idx},${2:val} in ipairs(${3:table_name}) do
+	$0
+end
+endsnippet
+
+snippet for "numeric for loop" b
+for ${1:i}=${2:first},${3:last}${4/^..*/(?0:,:)/}${4:step} do
+	$0
+end
+endsnippet
+
+snippet local "local x = 1"
+local ${1:x} = ${0:1}
+endsnippet
+
+snippet class "Lua psuedo class"
+${1:ClassName} = {}
+$1.__index = $1
+
+setmetatable($1, {
+	__call = function (cls)
+		return cls.new()
+	end,
+})
+
+function $1.init()
+	local self = setmetatable({}, $1);
+	return self
+end
+endsnippet
+
+snippet setter "Psuedo class setter"
+${1:ClassName}:set_${2:var}(v)
+	self.$2 = v
+end
+endsnippet
+
+snippet getter "Psuedo class getter"
+${1:ClassName}:get_${2:var}()
+	return self.$2
+end
+endsnippet
+
+# vim:ft=snippets:

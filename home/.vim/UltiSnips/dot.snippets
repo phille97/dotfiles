@@ -1,0 +1,17 @@
+snippet .dot ".dot boilerplate"
+digraph G {
+	rankdir=LR;
+}
+endsnippet
+
+snippet box "box"
+${1:name} [label="$1", shape="box"];
+endsnippet
+
+snippet subgraph "subgraph"
+subgraph cluster_${1:name} {
+	label="$1";
+	shape="box";
+	color="black";
+}
+endsnippet

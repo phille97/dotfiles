@@ -1,0 +1,87 @@
+extends javascript
+priority -50
+
+snippet class "React class"
+export class ${1:ClassName} extends React.Component { 
+
+	constructor (props) {
+		super(props);
+		this.state = {};
+		this._onChange = this._onChange.bind(this);
+	}
+
+	_onChange () {
+	}
+
+	componentDidMount () {
+		//Store.addChangeListener(this._onChange);
+	}
+
+	componentWillUnmount () {
+		//Store.removeChangeListener(this._onChange);
+	}
+
+
+	render () {
+		return (null);
+	}
+
+}
+endsnippet
+
+snippet propTypes "React propTypes"
+propTypes: {
+	prop: React.PropTypes.object.isRequired
+}
+endsnippet
+
+
+
+snippet el "React element"
+React.createElement("${1:tag}",
+	{key: ''}
+)
+endsnippet
+
+snippet div "React div"
+React.createElement("div",
+	{key: ''}
+)
+endsnippet
+
+snippet render "React render"
+React.render(
+	React.createElement(${1:Name}, null),
+	document.getElementById('${2:jsxID}')
+);
+endsnippet
+
+snippet elargs "Standard element args"
+{ id: '', className: '', key: '' }
+endsnippet
+
+snippet input "Input with lable"
+React.createElement("div",
+	{key: '${1:Name}'},
+	React.createElement("lable",
+		{key: '1', htmlFor: "$1"},
+		'$1'
+	),
+	React.createElement("input",
+		{key: '2', name: "$1", type: "${2:text}"}
+	)
+)
+endsnippet
+
+snippet inputv "Input with lable based on visual-select-text"
+React.createElement("div",
+	{key: '${VISUAL}'},
+	React.createElement("lable",
+		{key: '1', htmlFor: "${VISUAL}"},
+		'${VISUAL}'
+	),
+	React.createElement("input",
+		{key: '2', name: "${VISUAL}", type: "${2:text}"}
+	)
+)
+endsnippet
