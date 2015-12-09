@@ -17,7 +17,7 @@ Plugin 'bling/vim-airline'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'majutsushi/tagbar'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'SirVer/ultisnips'
@@ -86,7 +86,7 @@ let g:multi_cursor_exit_from_visual_mode = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 
 " YCM
-nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 
 " PIV
 let g:DisableAutoPHPFolding = 1
