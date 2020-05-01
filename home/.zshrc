@@ -1,32 +1,41 @@
-source ~/.zprezto/init.zsh
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-# Disable autocorrect guesses. Happens when typing a wrong
-# command that may look like an existing one.
-unsetopt CORRECT
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
 
-# MY PRECIOUS ALIAS!!!
-alias gst='git status'
+# Customize to your needs...
 
-export PATH="/usr/local/sbin:$PATH"
+unsetopt correct
+unsetopt correct_all
 
-# Python
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=$(which python2.7)
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-export PIP_VIRTUALENV_BASE=$WORKON_HOME
-export PIP_RESPECT_VIRTUALENV=true
-if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-else
-    echo "WARNING: Can't find virtualenvwrapper.sh"
+# configure for gnupg ssh agent
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='mvim'
-    export VISUAL=$EDITOR
-fi
+# Herre, visa mig dina vägar, lär mig dina stigar.
+export GOPATH="~/go/"
+export PATH="~/.yarn/bin:~/go/bin:$PATH"
 
+# Omvänd er och låt er alla döpas i Jesu Kristi namn
+alias gst="git status"
+alias say='echo "$1" | espeak -s 120 2>>/dev/null'
+
+# Node Version Manager
+source /usr/share/nvm/init-nvm.sh
+
+# Python virtualenvs
+export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+
+# Fix stuff for autocompletion
+autoload -U +X bashcompinit && bashcompinit

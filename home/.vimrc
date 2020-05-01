@@ -7,38 +7,31 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-scripts/L9'
-Plugin 'mattn/emmet-vim'
-Plugin 'bling/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'SirVer/ultisnips'
-Plugin 'mileszs/ack.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'vim-scripts/codepad'
-Plugin 'vim-scripts/hexHighlight.vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'christoomey/vim-conflicted'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-surround'
-Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-fugitive'            " :G git commands
+Plugin 'vim-airline/vim-airline'       " infoline under editing window
+Plugin 'mhinz/vim-signify'             " git/vcs diff gutter, shown left of linenumbers
+Plugin 'vim-syntastic/syntastic'       " syntax checking
+Plugin 'majutsushi/tagbar'             " :TagbarToggle tags overview of current source file
+Plugin 'ycm-core/YouCompleteMe'        " <3 
+Plugin 'scrooloose/nerdtree'           " explorer.exe
+Plugin 'SirVer/ultisnips'              " snippets engine
+Plugin 'honza/vim-snippets'            " snippets
+Plugin 'mileszs/ack.vim'               " :Ack
+Plugin 'ctrlpvim/ctrlp.vim'            " :CtrlP fuzzy search file names 
+Plugin 'terryma/vim-multiple-cursors'  " multiple cursors
+Plugin 'vim-scripts/hexHighlight.vim'  " display hexcolors
+Plugin 'sjl/gundo.vim'                 " :GundoToggle graphical undo
+Plugin 'christoomey/vim-conflicted'    " git conflict resolviN
+Plugin 'easymotion/vim-easymotion'     " motions on speed
+Plugin 'godlygeek/tabular'             " align text
+Plugin 'editorconfig/editorconfig-vim' " parse .editorconfig
+Plugin 'vim-vdebug/vdebug'             " dbgp client
 
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'hdima/python-syntax'
-Plugin 'othree/yajs.vim' " Javascript Syntax
-Plugin 'mitsuhiko/vim-jinja'
-Plugin 'sickill/vim-monokai'
-Plugin 'jnurmine/Zenburn'
-Plugin 'mkarmona/colorsbox'
+Plugin 'sheerun/vim-polyglot'          " syntax and language specific thingies
+Plugin 'mkarmona/colorsbox'            " muh vim colorscheme
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,6 +62,12 @@ let &colorcolumn="80"
 " Indent Guides
 set st=4 sw=4 et
 
+" more powerful backspacing
+set backspace=2
+
+" Vim Spell
+set nospell
+
 " Gvim options
 set guifont=Source\ Code\ Pro\ 10
 set guioptions-=m  "remove menu bar
@@ -86,7 +85,7 @@ let g:multi_cursor_exit_from_visual_mode = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 
 " YCM
-"nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 
 " PIV
 let g:DisableAutoPHPFolding = 1
@@ -96,19 +95,27 @@ let g:UltiSnipsExpandTrigger="<c-enter>"
 let g:UltiSnipsJumpForwardTrigger="<c-enter>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
+
 " Easymotion
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 nmap f <Plug>(easymotion-s)
 
+" EditorConfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*', 'scp://.\*']
+
+" vim-signify
+set updatetime=100
+
 " Syntastic - Linting
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
@@ -119,7 +126,9 @@ let g:syntastic_yaml_checkers = ['jsyaml']
 
 let g:syntastic_html_tidy_exec = 'tidy'
 
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 
+" Set colorscheme
 colorscheme colorsbox-material 
 
 " Set mapleader
@@ -145,8 +154,27 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#virtualenv#enabled = 1
 
-" Vim Spell
-set nospell
+" YCM
+let g:ycm_language_server = [
+  \   {
+  \     'name': 'yaml',
+  \     'cmdline': [ 'node', expand( '$HOME/apps/lsp/yaml/node_modules/.bin/yaml-language-server' ), '--stdio' ],
+  \     'filetypes': [ 'yaml' ],
+  \   },
+  \   {
+  \     'name': 'php',
+  \     'cmdline': [ 'php', expand( '$HOME/apps/lsp/php/vendor/bin/php-language-server.php' ) ],
+  \     'filetypes': [ 'php' ],
+  \   },
+  \   { 'name': 'vue',
+  \     'filetypes': [ 'vue' ], 
+  \     'cmdline': [ expand( '$HOME/apps/lsp/vue/node_modules/.bin/vls' ) ]
+  \   },
+  \   { 'name': 'docker',
+  \     'filetypes': [ 'dockerfile' ], 
+  \     'cmdline': [ expand( '$HOME/apps/lsp/docker/node_modules/.bin/docker-langserver' ), '--stdio' ]
+  \   }
+  \ ]
 
 " Map for displaying highlight groups under cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -155,14 +183,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 :noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
-
-" Configuration file for vim
-set modelines=0		" CVE-2007-2438
-
-" Normally we use vim-extensions. If you want true vi-compatibility
-" remove change the following statements
-set nocompatible	" Use Vim defaults instead of 100% vi compatibility
-set backspace=2		" more powerful backspacing
 
 " Don't write backup file if vim is being called by "crontab -e"
 au BufWrite /private/tmp/crontab.* set nowritebackup nobackup
