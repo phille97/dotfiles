@@ -15,8 +15,7 @@ Plugin 'vim-airline/vim-airline'       " infoline under editing window
 Plugin 'mhinz/vim-signify'             " git/vcs diff gutter, shown left of linenumbers
 Plugin 'vim-syntastic/syntastic'       " syntax checking
 Plugin 'majutsushi/tagbar'             " :TagbarToggle tags overview of current source file
-"Plugin 'ycm-core/YouCompleteMe'        " </3 
-Plugin 'neoclide/coc.nvim', {'pinned': 1}
+Plugin 'ycm-core/YouCompleteMe'        " <3 
 Plugin 'scrooloose/nerdtree'           " explorer.exe
 Plugin 'SirVer/ultisnips'              " snippets engine
 Plugin 'honza/vim-snippets'            " snippets
@@ -155,33 +154,33 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#virtualenv#enabled = 1
 
-" COC
-
-
-
 " " padawan
 " let g:padawan#cli = expand('$HOME/apps/lsp/php-padawan/vendor/bin/padawan')
 " let g:padawan#server_command = expand('$HOME/apps/lsp/php-padawan/vendor/bin/padawan-server')
 " 
-" " YCM
-" let g:ycm_language_server = [
-"   \   {
-"   \     'name': 'yaml',
-"   \     'cmdline': [ 'node', expand( '$HOME/apps/lsp/yaml/node_modules/.bin/yaml-language-server' ), '--stdio' ],
-"   \     'filetypes': [ 'yaml' ],
-"   \   },
-"   \   { 'name': 'vue',
-"   \     'filetypes': [ 'vue' ], 
-"   \     'cmdline': [ expand( '$HOME/apps/lsp/vue/node_modules/.bin/vls' ) ]
-"   \   },
-"   \   { 'name': 'docker',
-"   \     'filetypes': [ 'dockerfile' ], 
-"   \     'cmdline': [ expand( '$HOME/apps/lsp/docker/node_modules/.bin/docker-langserver' ), '--stdio' ]
-"   \   }
-"   \ ]
-" let g:ycm_semantic_triggers = {}
-" let g:ycm_semantic_triggers.php =
-" \ ['->', '::', '(', 'use ', 'namespace ', '\']
+" YCM
+let g:ycm_language_server = [
+  \   {
+  \     'name': 'yaml',
+  \     'cmdline': [ 'node', expand( '$HOME/apps/lsp/yaml/node_modules/.bin/yaml-language-server' ), '--stdio' ],
+  \     'filetypes': [ 'yaml' ],
+  \   },
+  \   { 'name': 'vue',
+  \     'filetypes': [ 'vue' ],
+  \     'cmdline': [ expand( '$HOME/apps/lsp/vue/node_modules/.bin/vls' ) ]
+  \   },
+  \   { 'name': 'php',
+  \     'filetypes': [ 'php' ],
+  \     'cmdline': [ 'intelephense', '--stdio' ]
+  \   },
+  \   { 'name': 'docker',
+  \     'filetypes': [ 'dockerfile' ],
+  \     'cmdline': [ expand( '$HOME/apps/lsp/docker/node_modules/.bin/docker-langserver' ), '--stdio' ]
+  \   }
+  \ ]
+let g:ycm_semantic_triggers = {}
+let g:ycm_semantic_triggers.php =
+\ ['->', '::', '(', 'use ', 'namespace ', '\']
 
 " Map for displaying highlight groups under cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
