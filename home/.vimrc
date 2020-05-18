@@ -30,7 +30,6 @@ Plugin 'godlygeek/tabular'             " align text
 Plugin 'editorconfig/editorconfig-vim' " parse .editorconfig
 Plugin 'vim-vdebug/vdebug'             " dbgp client
 
-Plugin 'sheerun/vim-polyglot'          " syntax and language specific thingies
 Plugin 'mkarmona/colorsbox'            " muh vim colorscheme
 
 " All of your Plugins must be added before the following line
@@ -104,8 +103,8 @@ nmap f <Plug>(easymotion-s)
 " EditorConfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*', 'scp://.\*']
 
-" vim-signify
-set updatetime=100
+" vim-signify / YCM hover popup
+set updatetime=1000
 
 " Syntastic - Linting
 set statusline+=%#warningmsg#
